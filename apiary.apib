@@ -52,7 +52,7 @@ The reponse is a single ticker for a market on an exchange.
 * <code>ask</code>  The best ask price.
 * <code>high</code>  The highest trade price in the last 24 hours.
 * <code>low</code>  The lowest trade price in the last 24 hours.
-* <code>volume</code>  The volume traded in the last 24 hours, denominated in the price asset.
+* <code>volume</code>  The volume traded in the last 24 hours, denominated in the trade asset.
 * <code>timestamp</code>  If not provided by the exchange it reflects the time initially received by our backend.
 
 + Response 200 (application/json)
@@ -84,7 +84,7 @@ The reponse is a single ticker for a market on the subscribed EXCHANGE.
 * <code>ask</code>  The best ask price.
 * <code>high</code>  The highest trade price in the last 24 hours.
 * <code>low</code>  The lowest trade price in the last 24 hours.
-* <code>volume</code>  The volume traded in the last 24 hours, denominated in the price asset.
+* <code>volume</code>  The volume traded in the last 24 hours, denominated in the trade asset.
 * <code>timestamp</code>  If not provided by the exchange it reflects the time initially received by our backend.
 + Parameters
     + EXCHANGE (required, string, `KRAKEN`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
