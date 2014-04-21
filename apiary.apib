@@ -24,7 +24,7 @@ This is a streaming websocket API hosted by PubNub.  For detailed documentation 
 * Timestamps - All timestamps are represented in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601), e.g., <code>2014-04-20T10:57:55-07</code>.
 
 ##Service Architecture
-The backend is a distributed [Storm Cluster](http://storm.incubator.apache.org/) deployed to AWS EC2.  Each market resource, e.g., <code>ticker.KRAKEN.BTCUSD</code>, has a dedicated thread that repeatedly polls the exchange's service. The rate of polling is set to respect exchange rate limits, the duration the exchange caches data, or at most once a second if neither is defined by the exchange. The data is then normalized to a common data model and published to PubNub.  
+The backend is a distributed [Storm Cluster](http://storm.incubator.apache.org/) deployed to AWS EC2.  Each market resource, e.g., <code>ticker.KRAKEN.BTCUSD</code>, has a dedicated thread that repeatedly polls the exchange's service. The rate of polling is set to respect exchange rate limits and to poll no more than the duration the exchange caches data. If the exchange provides neither peice of information, each resource is polled for at most once per second. The data is then normalized to a common data model and published to PubNub.  
 
 ##Temporary Limitations
 The following limitations can be easily removed with proper funding.  If you would like to see this service scale please donate below.  
