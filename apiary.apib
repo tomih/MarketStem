@@ -5,11 +5,22 @@ HOST: wss://pubsub.pubnub.com//sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe/
 MarketStem joins market data from several digital asset exchanges into one convienent streaming API.
 
 ##Supported Exchanges  
-[ANXPRO](https://anxpro.com/), [BITSTAMP](https://www.bitstamp.net/), [BITFINEX](https://www.bitfinex.com/), [BTCE](https://btc-e.com/), [BTCHINA](https://vip.btcchina.com/), [BTER](https://bter.com/), [CAMPBX](https://campbx.com/), [CEXIO](https://cex.io/), [CRYPTOTRADE](https://crypto-trade.com/), [JUSTCOIN](https://justcoin.com/), [KRAKEN](https://www.kraken.com/), [VAULTOFSATOSHI](https://www.vaultofsatoshi.com/).
+<a href="https://anxpro.com/" target="_blank">ANXPRO</a>, 
+<a href="https://www.bitstamp.net/" target="_blank">BITSTAMP</a>, 
+<a href="https://www.bitfinex.com/" target="_blank">BITFINEX</a>, 
+<a href="https://btc-e.com/" target="_blank">BTCE</a>, 
+<a href="https://vip.btcchina.com/" target="_blank">BTCHINA</a>, 
+<a href="https://bter.com/" target="_blank">BTER</a>, 
+<a href="https://campbx.com/" target="_blank">CAMPBX</a>, 
+<a href="https://cex.io/" target="_blank">CEXIO</a>, 
+<a href="https://crypto-trade.com/" target="_blank">CRYPTOTRADE</a>, 
+<a href="https://justcoin.com/" target="_blank">JUSTCOIN</a>, 
+<a href="https://www.kraken.com/" target="_blank">KRAKEN</a>, 
+<a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
 
 ##Connecting
-This is a streaming websocket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please [visit pubnub](http://www.pubnub.com/developers).
- Or try out the [dev console](http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false) to quickly visualize the live data.  
+This is a streaming websocket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit pubnub</a>.
+ Or try out the <a href="http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.  
  
  **PubNub Subscription Key:** sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe
 
@@ -21,15 +32,15 @@ This is a streaming websocket API hosted by PubNub.  For detailed documentation 
 ##Data Format
 * Asset - An uppercase identifier three characters in length, e.g., <code>USD</code>.
 * Market - Two tradable asset identifiers concatenated together, e.g., <code>BTCUSD</code>.  The second asset is the asset for which the market is priced in.
-* Timestamps - All timestamps are represented in [ISO 8601 format](http://en.wikipedia.org/wiki/ISO_8601), e.g., <code>2014-04-20T10:57:55-07</code>.
+* Timestamps - All timestamps are represented in <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601 format</a>, e.g., <code>2014-04-20T10:57:55-07</code>.
 
 ##Service Architecture
-The backend is a distributed [Storm Cluster](http://storm.incubator.apache.org/) deployed to AWS EC2.  Each market resource, e.g., <code>ticker.KRAKEN.BTCUSD</code>, has a dedicated thread that repeatedly polls the exchange's service. The rate of polling is set as frequent as possible while respecting exchange rate limits and to poll no more than the duration the exchange caches data. If the exchange provides neither peice of information, each resource is polled for at most once per five seconds (arbitrary, let us know if you need it faster). The data is then normalized to a common data model and published to PubNub.  
+The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., <code>ticker.KRAKEN.BTCUSD</code>, has a dedicated thread that repeatedly polls the exchange's service. The rate of polling is set as frequent as possible while respecting exchange rate limits and to poll no more than the duration the exchange caches data. If the exchange provides neither peice of information, each resource is polled for at most once per five seconds (arbitrary, let us know if you need it faster). The data is then normalized to a common data model and published to PubNub.  
 
 ##Temporary Limitations
 The following limitations can be easily removed with proper funding.  If you would like to see this service scale please donate below.  
 
-*  Only 20 clients (unique ip addressses) can connect per day because we are using [PubNub's free service](http://www.pubnub.com/pricing/).
+*  Only 20 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's free service</a>.
 *  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's free service.  This is increased to 7.2K under their paid service.
 *  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.
     * USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.  
