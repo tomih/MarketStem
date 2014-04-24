@@ -5,18 +5,18 @@ HOST: wss://pubsub.pubnub.com//sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe/
 MarketStem joins market data from several digital asset exchanges into one convenient streaming API.
 
 ##Supported Exchanges
-    <a href="https://anxpro.com/" target="_blank">ANXPRO</a>,
-    <a href="https://www.bitstamp.net/" target="_blank">BITSTAMP</a>,
-    <a href="https://www.bitfinex.com/" target="_blank">BITFINEX</a>,
-    <a href="https://btc-e.com/" target="_blank">BTCE</a>,
-    <a href="https://vip.btcchina.com/" target="_blank">BTCHINA</a>,
-    <a href="https://bter.com/" target="_blank">BTER</a>,
-    <a href="https://campbx.com/" target="_blank">CAMPBX</a>,
-    <a href="https://cex.io/" target="_blank">CEXIO</a>,
-    <a href="https://crypto-trade.com/" target="_blank">CRYPTOTRADE</a>,
-    <a href="https://justcoin.com/" target="_blank">JUSTCOIN</a>,
-    <a href="https://www.kraken.com/" target="_blank">KRAKEN</a>,
-    <a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
+<a href="https://anxpro.com/" target="_blank">ANXPRO</a>,
+<a href="https://www.bitstamp.net/" target="_blank">BITSTAMP</a>,
+<a href="https://www.bitfinex.com/" target="_blank">BITFINEX</a>,
+<a href="https://btc-e.com/" target="_blank">BTCE</a>,
+<a href="https://vip.btcchina.com/" target="_blank">BTCHINA</a>,
+<a href="https://bter.com/" target="_blank">BTER</a>,
+<a href="https://campbx.com/" target="_blank">CAMPBX</a>,
+<a href="https://cex.io/" target="_blank">CEXIO</a>,
+<a href="https://crypto-trade.com/" target="_blank">CRYPTOTRADE</a>,
+<a href="https://justcoin.com/" target="_blank">JUSTCOIN</a>,
+<a href="https://www.kraken.com/" target="_blank">KRAKEN</a>,
+<a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
 
 ##Connecting
 This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit pubnub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
@@ -41,8 +41,8 @@ The following limitations can be easily removed with proper funding.  If you wou
 
 *  Only 20 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's free service</a>.
 *  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's free service.  This is increased to 7.2K under their paid service.
-*  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.
-        USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.
+*  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.  
+  * USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.
 
 ##Contact
 marketstem@gmail.com
