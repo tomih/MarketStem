@@ -13,6 +13,7 @@ MarketStem joins market data from several digital asset exchanges into one conve
 <a href="https://bter.com/" target="_blank">BTER</a>,
 <a href="https://campbx.com/" target="_blank">CAMPBX</a>,
 <a href="https://cex.io/" target="_blank">CEXIO</a>,
+<a href="https://coinbase.com/" target="_blank">COINBASE</a>,
 <a href="https://crypto-trade.com/" target="_blank">CRYPTOTRADE</a>,
 <a href="https://justcoin.com/" target="_blank">JUSTCOIN</a>,
 <a href="https://www.kraken.com/" target="_blank">KRAKEN</a>,
@@ -29,13 +30,14 @@ This is a streaming web-socket API hosted by PubNub.  For detailed documentation
 * Market - A pair of assets that can be traded for each other.
 
 ##Data Format
-* Asset - An uppercase identifier three characters in length, e.g., `USD`.
+* Exchange - Uppercase string, e.g., `BTCE`.
+* Asset - Three character uppercase string, e.g., `USD`.
 * Market - Two tradable asset identifiers concatenated together, e.g., `BTCUSD`.  The second asset is the asset for which the market is priced in.
 * Timestamps - All timestamps are represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-04-20T10:57:55-07`.
-* Numbers - Trailing zeroes are stripped down to at least a scale of 1, e.g., `123.0`.  Numbers will never be in exponential notation and there are no additional scale restrictions placed on original data received by an exchange.
+* Numbers - Trailing zeroes are stripped to a minimum scale of 1, e.g., `123.0`.  Numbers will never be in exponential notation and there are no additional scale restrictions placed on original data received by an exchange.
 
 ##Service Architecture
-The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., `ticker.KRAKEN.BTCUSD`, has a dedicated thread that repeatedly polls its respective exchange service API. Exchange data requests are set to poll as frequent as possible while respecting exchange rate limits and to prevent retrieval of duplicate cached data. If the exchange provides neither piece of information, each resource is polled for at most once per five seconds. The data is then normalized to a common data model and published to PubNub.  
+The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., `ticker.KRAKEN.BTCUSD`, has a dedicated thread that repeatedly polls its respective exchange service API. Exchange data requests are set to poll as frequent as possible while respecting exchange rate limits and to prevent retrieval of duplicate cached data. If the exchange provides neither piece of information, each resource is polled for at most once per five seconds. The data is then normalized to a common data model and published to PubNub.
 
 
 ##Temporary Limitations
@@ -43,7 +45,7 @@ The following limitations can be easily removed with proper funding.  If you wou
 
 *  Only 20 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's free service</a>.
 *  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's free service.  This is increased to 7.2K under their paid service.
-*  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.  
+*  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.
   * USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.
 
 ##Contact
@@ -119,7 +121,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `exchange`
 * `market`
 * `bids`  Open bid limit orders sorted from highest to lowest price.
-* `asks`  Open ask limit orders sorted from lowest to highest price.  
+* `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `[price, volume]`.
 
   **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's free service.  This can be increased if a switch is made to PubNub's paid service which has a message limit of 7.2k.
