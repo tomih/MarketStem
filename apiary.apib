@@ -38,7 +38,7 @@ This is a streaming web-socket API hosted by PubNub.  For detailed documentation
 * Numbers - Trailing zeroes are stripped to a minimum scale of 1, e.g., `123.0`.  Numbers can potentially be formatted in scientifc notation, e.g., `1e-8`.  
 
 ##Service Architecture
-The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., `ticker.KRAKEN.BTCUSD`, has a dedicated thread that repeatedly polls its respective exchange service API. Exchange data requests are set to poll as frequent as possible while respecting exchange rate limits and to prevent retrieval of duplicate cached data. If the exchange provides neither piece of information, each resource is polled for at most once per five seconds. The data is then normalized to a common data model and published to PubNub.
+The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., `ticker.KRAKEN.BTCUSD`, has a dedicated thread that repeatedly polls its respective exchange-service. By default, each resource is limited to be retrieved at most once every three seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the exchange service. The data is then normalized to a common data model and published to PubNub.
 
 
 ##Temporary Limitations
