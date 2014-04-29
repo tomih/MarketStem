@@ -20,14 +20,14 @@ MarketStem joins market data from several digital asset exchanges into one conve
 <a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
 
 ##Connecting
-This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit pubnub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
+This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit PubNub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
 
  **PubNub Subscription Key:** sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe
 
 ##Terminology
 * Channel - A PubNub endpoint used to stream a specific type of data.
 * Asset - Anything that can be traded on the supported exchanges above.
-* Market - A pair of assets that can be traded for each other.
+* Market - A pair of assets that can be traded for each other.  The first asset is considered the trade asset and the second is the price asset.
 * Market Depth - see <a href="http://en.wikipedia.org/wiki/Order_book_(trading)#Book_depth" target="_blank">Order Book Depth</a>.
 
 ##Data Format
@@ -62,7 +62,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Ticker Fields
 * `exchange`
 * `market`
-* `last`  The last trades price in the market.
+* `last`  The price of the most recent trade.
 * `bid`  The best bid price.
 * `ask`  The best ask price.
 * `high`  The highest trade price in the last 24 hours.
@@ -91,7 +91,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Ticker Fields
 * `exchange`
 * `market`
-* `last`  The last trades price in the market.
+* `last`  The price of the most recent trade.
 * `bid`  The best bid price.
 * `ask`  The best ask price.
 * `high`  The highest trade price in the last 24 hours.
@@ -121,6 +121,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Market Depth Fields
 * `exchange`
 * `market`
+* `timestamp` Reflects the time initially received by our backend.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `[price, volume]`.
@@ -163,6 +164,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Market Depth Fields
 * `exchange`
 * `market`
+* `timestamp` Reflects the time initially received by our backend. 
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `[price, volume]`.
