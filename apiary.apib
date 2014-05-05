@@ -53,7 +53,7 @@ The following limitations can be easily removed with proper funding.  If you wou
 marketstem@gmail.com
 
 <br />
-<a class="coinbase-button" data-code="9f31b6187d1d81f032ae8db6e123ca81" data-button-style="donation_large" data-custom="MarketStem" href="https://coinbase.com/checkouts/9f31b6187d1d81f032ae8db6e123ca81">Donate Bitcoins</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
+<a class="coinbase-button" data-code="efb37915d8c675b893e6094cdacb5e37" data-button-style="donation_large" data-custom="MarketStemDonation" href="https://coinbase.com/checkouts/efb37915d8c675b893e6094cdacb5e37">Donate Bitcoins</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
 
 # Group Market Data
 Each section below represents a PubNub channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.
@@ -124,7 +124,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `["price", "volume"]`.
+        * Limit orders are formatted as `["price", "trade amount"]`.
 
   **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
@@ -168,7 +168,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `["price", "volume"]`.
+        * Limit orders are formatted as `["price", "trade amount"]`.
 
   **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
