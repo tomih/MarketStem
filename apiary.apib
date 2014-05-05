@@ -20,9 +20,9 @@ MarketStem joins market data from several digital asset exchanges into one conve
 <a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
 
 ##Connecting
-This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit PubNub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker.KRAKEN&origin=pubsub.pubnub.com&sub=sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
+This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit PubNub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker&origin=pubsub.pubnub.com&sub=sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
 
- **PubNub Subscription Key:** sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe
+ **PubNub Subscription Key:** 'sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe'
 
 ##Terminology
 * Channel - A PubNub endpoint used to stream a specific type of data.
@@ -34,18 +34,18 @@ This is a streaming web-socket API hosted by PubNub.  For detailed documentation
 * Exchange - Uppercase string, e.g., `BTCE`.
 * Asset - Three character uppercase string, e.g., `USD`.
 * Market - Two tradable asset identifiers concatenated together, e.g., `BTCUSD`.  The second asset is the asset for which the market is priced in.
-* Timestamps - All timestamps are represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-04-20T10:57:55-07`.
-* Numbers - Trailing zeroes are stripped to a minimum scale of 1, e.g., `123.0`.  Numbers can potentially be formatted in scientifc notation, e.g., `1e-8`.  
+* Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-05-04T23:31:26Z`.
+* Numbers - <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">See Java's BigDecimal plain string format</a>.
 
 ##Service Architecture
-The backend is a distributed <a href="http://storm.incubator.apache.org/" target="_blank">Storm Cluster</a> deployed to AWS EC2.  Each market resource, e.g., `ticker.KRAKEN.BTCUSD`, has a dedicated thread that repeatedly polls its respective exchange-service. By default, each resource is limited to be retrieved at most once every three seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the exchange service. The data is then normalized to a common data model and published to PubNub.
+The backend consists of distributed network of failover nodes deployed to AWS EC2.  Nodes consist of a collection of services that are each responsible for their own resource, i.e., all tickers for the exchange Kraken`ticker.KRAKEN`. Failover is handled on a resource level. If a resource fails to check in for two minutes an identitical resource service from another node will take over.  Each resource service repeatedly polls its respective exchange-service. By default, each resource is limited to poll at most once every five seconds (can be increased if needed), i.e., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
 
 
 ##Temporary Limitations
 The following limitations can be easily removed with proper funding.  If you would like to see this service scale please donate below.
 
-*  Only 20 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's free service</a>.
-*  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's free service.  This is increased to 7.2K under their paid service.
+*  Only 100 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's Go Cloud Basic Service</a>.
+*  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's basic service.  This can be increased to 7.2K.
 *  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.
   * USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.
 
@@ -56,7 +56,7 @@ marketstem@gmail.com
 <a class="coinbase-button" data-code="9f31b6187d1d81f032ae8db6e123ca81" data-button-style="donation_large" data-custom="MarketStem" href="https://coinbase.com/checkouts/9f31b6187d1d81f032ae8db6e123ca81">Donate Bitcoins</a><script src="https://coinbase.com/assets/button.js" type="text/javascript"></script>
 
 # Group Market Data
-Each section below represents a PubNub channel that is available for subscription.  All data objects are returned in a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.
+Each section below represents a PubNub channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.
 # ticker [/ticker]
 ## Subscribe to tickers for all markets on all exchanges. [GET]
 #####Ticker Fields
@@ -68,21 +68,21 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `high`  The highest trade price in the last 24 hours.
 * `low`  The lowest trade price in the last 24 hours.
 * `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
-* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend.
+* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
 
 + Response 200 (application/json)
 
         [
            {
-              "exchange":"KRAKEN",
-              "market":"LTCUSD",
-              "last":12.07608,
-              "bid":6.001,
-              "ask":12.50482,
-              "high":12.65,
-              "low":12.07608,
-              "volume":5.24895304,
-              "timestamp":"2014-04-23T21:16:45-07"
+              "market":"PPCBTC",
+              "volume":"41.49106",
+              "high":"0.00486",
+              "last":"0.00479",
+              "low":"0.00471",
+              "ask":"0.00482",
+              "exchange":"BTCE",
+              "bid":"0.00479",
+              "timestamp":"2014-05-04T23:31:26Z"
            }
         ]
 
@@ -97,22 +97,22 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `high`  The highest trade price in the last 24 hours.
 * `low`  The lowest trade price in the last 24 hours.
 * `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
-* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend.
+* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
 + Parameters
-    + EXCHANGE (required, string, `KRAKEN`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
+    + EXCHANGE (required, string, `BTCE`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
 + Response 200 (application/json)
 
         [
            {
-              "exchange":"KRAKEN",
-              "market":"LTCUSD",
-              "last":12.07608,
-              "bid":6.001,
-              "ask":12.50482,
-              "high":12.65,
-              "low":12.07608,
-              "volume":5.24895304,
-              "timestamp":"2014-04-23T21:16:45-07"
+              "market":"PPCBTC",
+              "volume":"41.49106",
+              "high":"0.00486",
+              "last":"0.00479",
+              "low":"0.00471",
+              "ask":"0.00482",
+              "exchange":"BTCE",
+              "bid":"0.00479",
+              "timestamp":"2014-05-04T23:31:26Z"
            }
         ]
 
@@ -121,12 +121,12 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Market Depth Fields
 * `exchange`
 * `market`
-* `timestamp` Reflects the time initially received by our backend.
+* `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `[price, volume]`.
+        * Limit orders are formatted as `["price", "volume"]`.
 
-  **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's free service.  This can be increased if a switch is made to PubNub's paid service which has a message limit of 7.2k.
+  **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
 + Response 200 (application/json)
 
@@ -134,28 +134,29 @@ Each section below represents a PubNub channel that is available for subscriptio
            {
               "bids":[
                  [
-                    480.6,
-                    480.6
+                    "480.6",
+                    "480.6"
                  ],
                  ...
                  [
-                    419.8,
-                    419.8
+                    "419.8",
+                    "419.8"
                  ]
               ],
               "asks":[
                  [
-                    501.371,
-                    501.371
+                    "501.371",
+                    "501.371"
                  ],
                  ...
                  [
-                    692.32,
-                    692.32
+                    "692.32",
+                    "692.32"
                  ]
               ],
               "exchange":"JUSTCOIN",
-              "market":"BTCUSD"
+              "market":"BTCUSD",
+              "timestamp":"2014-04-23T21:16:45Z"
            }
         ]
 
@@ -164,12 +165,12 @@ Each section below represents a PubNub channel that is available for subscriptio
 #####Market Depth Fields
 * `exchange`
 * `market`
-* `timestamp` Reflects the time initially received by our backend. 
+* `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `[price, volume]`.
+        * Limit orders are formatted as `["price", "volume"]`.
 
-  **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's free service.  This can be increased if a switch is made to PubNub's paid service which has a message limit of 7.2k.
+  **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
 + Parameters
     + EXCHANGE (required, string, `JUSTCOIN`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
@@ -180,27 +181,28 @@ Each section below represents a PubNub channel that is available for subscriptio
            {
               "bids":[
                  [
-                    480.6,
-                    480.6
+                    "480.6",
+                    "480.6"
                  ],
                  ...
                  [
-                    419.8,
-                    419.8
+                    "419.8",
+                    "419.8"
                  ]
               ],
               "asks":[
                  [
-                    501.371,
-                    501.371
+                    "501.371",
+                    "501.371"
                  ],
                  ...
                  [
-                    692.32,
-                    692.32
+                    "692.32",
+                    "692.32"
                  ]
               ],
               "exchange":"JUSTCOIN",
-              "market":"BTCUSD"
+              "market":"BTCUSD",
+              "timestamp":"2014-04-23T21:16:45Z"
            }
         ]
