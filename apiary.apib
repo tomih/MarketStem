@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: wss://pubsub.pubnub.com//sub-c-500b2f78-c7a5-11e3-ab7b-02ee2ddab7fe/
+HOST: wss://pubsub.pubnub.com//sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe/
 
 # marketstem
 MarketStem joins market data from several digital asset exchanges into one convenient streaming API.
@@ -22,20 +22,20 @@ MarketStem joins market data from several digital asset exchanges into one conve
 ##Connecting
 This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit PubNub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker&origin=pubsub.pubnub.com&sub=sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
 
- **PubNub Subscription Key:** 'sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe'
+ **PubNub Subscription Key:** `sub-c-76747cdc-d33a-11e3-8068-02ee2ddab7fe`
 
 ##Terminology
-* Channel - A PubNub endpoint used to stream a specific type of data.
+* Channel - A PubNub endpoint used to stream a specific type of data, i.e., `ticker.BITSTAMP` streams all tickers for the exchange BITSTAMP.
 * Asset - Anything that can be traded on the supported exchanges above.
 * Market - A pair of assets that can be traded for each other.  The first asset is considered the trade asset and the second is the price asset.
-* Market Depth - see <a href="http://en.wikipedia.org/wiki/Order_book_(trading)#Book_depth" target="_blank">Order Book Depth</a>.
+* Market Depth - See <a href="http://en.wikipedia.org/wiki/Order_book_(trading)#Book_depth" target="_blank">Order Book Depth</a>.
 
 ##Data Format
 * Exchange - Uppercase string, e.g., `BTCE`.
 * Asset - Three character uppercase string, e.g., `USD`.
 * Market - Two tradable asset identifiers concatenated together, e.g., `BTCUSD`.  The second asset is the asset for which the market is priced in.
 * Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-05-04T23:31:26Z`.
-* Numbers - <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">See Java's BigDecimal plain string format</a>.
+* Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Service Architecture
 The backend consists of distributed network of failover nodes deployed to AWS EC2.  Nodes consist of a collection of services that are each responsible for their own resource, i.e., all tickers for the exchange Kraken`ticker.KRAKEN`. Failover is handled on a resource level. If a resource fails to check in for two minutes an identitical resource service from another node will take over.  Each resource service repeatedly polls its respective exchange-service. By default, each resource is limited to poll at most once every five seconds (can be increased if needed), i.e., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
