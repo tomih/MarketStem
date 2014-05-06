@@ -125,7 +125,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `["price", "trade amount"]`.
+        * Limit orders are formatted as `["trade amount", "price"]`.
 
   **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
@@ -136,24 +136,24 @@ Each section below represents a PubNub channel that is available for subscriptio
               "market":"BTCUSD",
               "asks":[
                  [
-                    "436.42",
-                    "0.06"
+                    "0.06",
+                    "436.42"
                  ],
                 ...
                  [
-                    "563.299",
-                    "0.21235"
+                    "0.21235",
+                    "563.299"
                  ]
               ],
               "bids":[
                  [
-                    "434.376",
-                    "4.294"
+                    "4.294",
+                    "434.376"
                  ],
                 ...
                  [
-                    "389.501",
-                    "0.092"
+                    "0.092",
+                    "389.501"
                  ]
               ],
               "exchange":"JUSTCOIN",
@@ -169,7 +169,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `timestamp` Reflects the time initially received by our backend service.
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
-        * Limit orders are formatted as `["price", "trade amount"]`.
+        * Limit orders are formatted as `["trade amount", "price"]`.
 
   **Note:**  `bids` and `asks` are currently limited to 15 orders each because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
 
@@ -183,24 +183,24 @@ Each section below represents a PubNub channel that is available for subscriptio
               "market":"BTCUSD",
               "asks":[
                  [
-                    "436.42",
-                    "0.06"
+                    "0.06",
+                    "436.42"
                  ],
                 ...
                  [
-                    "563.299",
-                    "0.21235"
+                    "0.21235",
+                    "563.299"
                  ]
               ],
               "bids":[
                  [
-                    "434.376",
-                    "4.294"
+                    "4.294",
+                    "434.376"
                  ],
                 ...
                  [
-                    "389.501",
-                    "0.092"
+                    "0.092",
+                    "389.501"
                  ]
               ],
               "exchange":"JUSTCOIN",
