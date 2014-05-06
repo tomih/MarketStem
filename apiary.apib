@@ -39,7 +39,7 @@ This is a streaming web-socket API hosted by PubNub.  For detailed documentation
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Service Architecture
-The backend consists of distributed network of failover nodes deployed to AWS EC2.  Nodes consist of a collection of services that are each responsible for their own resource, i.e., all tickers for the exchange Kraken`ticker.KRAKEN`. Failover is handled on a resource level. If a resource fails to check in for two minutes an identitical resource service from another node will take over.  Each resource service repeatedly polls its respective exchange-service. By default, each resource is limited to poll at most once every five seconds (can be increased if needed), i.e., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
+The backend consists of distributed network of failover nodes deployed to AWS EC2.  Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`. Failover is handled on a resource level. If a resource fails to check in for two minutes an identical resource service from another node will take over.  Each resource service repeatedly polls its respective exchange-service. By default, each resource is limited to poll at most once every five seconds (can be increased if needed), e.g., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
 
 
 ##Temporary Limitations
@@ -133,31 +133,31 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "bids":[
-                 [
-                    "480.6",
-                    "480.6"
-                 ],
-                 ...
-                 [
-                    "419.8",
-                    "419.8"
-                 ]
-              ],
+              "market":"BTCUSD",
               "asks":[
                  [
-                    "501.371",
-                    "501.371"
+                    "436.42",
+                    "0.06"
                  ],
-                 ...
+                ...
                  [
-                    "692.32",
-                    "692.32"
+                    "563.299",
+                    "0.21235"
+                 ]
+              ],
+              "bids":[
+                 [
+                    "434.376",
+                    "4.294"
+                 ],
+                ...
+                 [
+                    "389.501",
+                    "0.092"
                  ]
               ],
               "exchange":"JUSTCOIN",
-              "market":"BTCUSD",
-              "timestamp":"2014-04-23T21:16:45Z"
+              "timestamp":"2014-05-06T13:44:40.063Z"
            }
         ]
 
@@ -180,30 +180,30 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "bids":[
-                 [
-                    "480.6",
-                    "480.6"
-                 ],
-                 ...
-                 [
-                    "419.8",
-                    "419.8"
-                 ]
-              ],
+              "market":"BTCUSD",
               "asks":[
                  [
-                    "501.371",
-                    "501.371"
+                    "436.42",
+                    "0.06"
                  ],
-                 ...
+                ...
                  [
-                    "692.32",
-                    "692.32"
+                    "563.299",
+                    "0.21235"
+                 ]
+              ],
+              "bids":[
+                 [
+                    "434.376",
+                    "4.294"
+                 ],
+                ...
+                 [
+                    "389.501",
+                    "0.092"
                  ]
               ],
               "exchange":"JUSTCOIN",
-              "market":"BTCUSD",
-              "timestamp":"2014-04-23T21:16:45Z"
+              "timestamp":"2014-05-06T13:44:40.063Z"
            }
         ]
