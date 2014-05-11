@@ -130,7 +130,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `["trade amount", "price"]`.
 
-  **Note:**  `bids` and `asks` are currently limited to 30 orders in total because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
+  **Note:**  `bids` and `asks` are currently limited to 40 orders in total in an effort to stay under PubNub's 2K message pricing tier.  
 
 + Response 200 (application/json)
 
@@ -174,7 +174,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `["trade amount", "price"]`.
 
-  **Note:**  `bids` and `asks` are currently limited to 30 orders in total because of the 1.7K message size constraint for PubNub's basic service.  This can be increased to 7.2k for an additional cost.
+  **Note:**  `bids` and `asks` are currently limited to 40 orders in total in an effort to stay under PubNub's 2K message pricing tier.  
 
 + Parameters
     + EXCHANGE (required, string, `JUSTCOIN`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
