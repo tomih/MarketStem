@@ -39,16 +39,19 @@ This is a streaming web-socket API hosted by PubNub.  For detailed documentation
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Service Architecture
-The backend consists of distributed network of failover nodes deployed to AWS EC2.  Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`. Failover is handled on a resource level. If a resource fails to check in for two minutes an identical resource service from another node will take over.  Each resource service repeatedly polls its respective exchange-service. By default, each resource is limited to poll at most once every five seconds (can be increased if needed), e.g., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
+The backend consists of a globally distributed network of failover nodes. 
+Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`.
+Failover is handled on a resource level. If a resource fails to check in within two minutes an identical resource service from another node will take over. 
+Each resource service repeatedly polls its respective exchanges' service. By default, each resource is limited to poll at most once every five seconds 
+(can be increased if needed), e.g., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service. 
+Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
 
 
 ##Temporary Limitations
 The following limitations can be easily removed with proper funding.  If you would like to see this service scale please donate below.
 
+*  Only publishing to the channel `ticker` to serve as demo until there is any further interest.
 *  Only 100 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's Go Cloud Basic Service</a>.
-*  Only 30 bid and ask orders in total are included in the Market Depth data because of the 1.7K message size limit under PubNub's basic service.  This can be increased to 7.2K.
-*  In an effort to reduce wasted network traffic, only the following assets are supported for Market Depth data.  However, all assets offered by an exchange are supported for Ticker data.
-  * USD, EUR, GBP, HKD, CNY, AUD, CHF, SEK, DKK, SGD, NOK, RUR, KRW, CAD, JPY, GHS, BTC, LTC, NMC, NVC, PPC, FTC, TRC, WDC, XPM, DVC, DGC, UTC, XDG, XRP, XVN.
 
 ##Contact
 marketstem@gmail.com
