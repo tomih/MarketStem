@@ -63,13 +63,15 @@ The following limitations can be easily removed with proper funding.  If you wou
 ##Monthly Cost Estimate
 *  AWS Services And Digital Ocean Server Hosting: `$50`
 *  PubNub Subscription (<= 100 Clients): `$15`
-*  PubNub Messaging: `( ( numMessages / 1,000,000 ) * 30 days) * ( numClients + 1 )`
- * With current usage: `( ( 360,000 / 1,000,000 ) * 30 days ) * ( 25 + 1 ) = $280.80`
- * `$11.23` per client.
-*  Total Estimate: `$345.8` to support 25 clients for ticker and ticker.EXCHANGE channels.
+*  PubNub Messaging: `( ( numMessages / 1,000,000 ) * 30 days) * ( numClients + numChannels )`
+ * With current usage: `( ( 180,000 / 1,000,000 ) * 30 ) * ( 25 + 2 ) = $145.80`
+ * `$5.83` per client.
+*  Total Estimate: `$210.8` to support 25 clients for `ticker` and `ticker.EXCHANGE` channels.
+ * '8.432' per client.
 
 #####Further Notes:
 *  Assumes clients are subscribed for the entire month.
+*  Assumes clients subscribe to either `ticker` or `ticker.EXCHANGE` channels but not both (duplicate data).
 *  Publishing to exchange specific channels could potentially double the messaging costs.
 *  This section will be updated within a week with cost estimates for market depth data as well.
 
