@@ -61,12 +61,12 @@ The following limitations can be easily removed with proper funding.  If you wou
 *  Only 100 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's Go Cloud Basic Service</a>.
 
 ##Monthly Cost Estimate
-*  AWS And Server Hosting: `$50`
+*  AWS Services And Digital Ocean Server Hosting: `$50`
 *  PubNub Subscription (<= 100 Clients): `$15`
 *  PubNub Messaging: `( ( numMessages / 1,000,000 ) * 30 days) * ( numClients + 1 )`
- * With current usage: `( ( 1,000,000 / 1,000,000 ) * 30 days ) * ( 25 + 1 ) = $780`
- * `$31.2` per client.
-*  Total Estimate: `$845` to support 25 clients for ticker data only.
+ * With current usage: `( ( 360,000 / 1,000,000 ) * 30 days ) * ( 25 + 1 ) = $280.80`
+ * `$11.23` per client.
+*  Total Estimate: `$345.8` to support 25 clients for ticker and ticker.EXCHANGE channels.
 
 #####Further Notes:
 *  Assumes clients are subscribed for the entire month.
