@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: wss://pubsub.pubnub.com//sub-c-7dfa531a-d8c5-11e3-bd4d-02ee2ddab7fe/
+HOST: ws://marketstem.com:80/app/7c184500ec35e0786b0e?client=js&version=2.2
 
 # marketstem
 MarketStem joins market data from several digital asset exchanges into one convenient streaming API.
@@ -21,12 +21,38 @@ MarketStem joins market data from several digital asset exchanges into one conve
 
 If you would like to see an additional exchange added you can add a client implementation to the open source project <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a> or put up a <a href="http://xeiam.com/bounties" target="_blank">bounty</a> to have it implemented by the community.
 ##Connecting
-This is a streaming web-socket API hosted by PubNub.  For detailed documentation about how to connect with one of their many client libraries please <a href="http://www.pubnub.com/developers" target="_blank">visit PubNub</a>.  Or try out the <a href="http://www.pubnub.com/console/?channel=ticker&origin=pubsub.pubnub.com&sub=sub-c-7dfa531a-d8c5-11e3-bd4d-02ee2ddab7fe&pub=&cipher=&ssl=false" target="_blank">dev console</a> to quickly visualize the live data.
+This is a streaming web-socket API backed by <a href="https://github.com/stevegraham/slanger" target="_blank">Slanger</a>, an open source alternative to <a href="http://pusher.com/" target="_blank">Pusher</a>.  The <a href="http://pusher.com/docs/client_libraries" target="_blank">client libraries</a> supplied by Pusher can be used to connect and subscribe to channels.
 
- **PubNub Subscription Key:** `sub-c-7dfa531a-d8c5-11e3-bd4d-02ee2ddab7fe`
+ **Pusher/Slanger Application Key:** `7c184500ec35e0786b0e`  
+ **Websocket Host:** `marketstem.com`  
+ **HTML Host:** `marketstem.com`  
+
+
+        <!DOCTYPE html>
+        <head>
+            <title>MarketStem Demo</title>
+            <script src="http://js.pusher.com/2.2/pusher.min.js" type="text/javascript"></script>
+            <script type="text/javascript">
+                var pusher = new Pusher('7c184500ec35e0786b0e', {
+                    wsHost: "marketstem.com",
+                    httpHost: "marketstem.com"
+                });
+            
+                var channel = pusher.subscribe('ticker');
+                channel.bind('ticker', function(data) {
+                    document.getElementById("ticker").innerHTML = JSON.stringify( data );
+                });
+            </script>
+    
+        <body>
+            <p id="ticker">Waiting for ticker data...</p>
+        </body>
+        </head>
+
 
 ##Terminology
-* Channel - A PubNub endpoint used to stream a specific type of data, i.e., `ticker.BITSTAMP` streams all tickers for the exchange BITSTAMP.
+* Channel - A Pusher endpoint used to stream a specific type of data, i.e., `ticker.JUSTCOIN` streams all tickers for the exchange JUSTCOIN.
+* Event - Used to indicate the type of data published/subcribed on a channel.  Allows a client to subscribe to a specific event on a given channel. See <a href="http://pusher.com/docs/client_api_guide/client_events" target="_blank">Pusher Events</a> for more information.
 * Asset - Anything that can be traded on the supported exchanges above.
 * Market - A pair of assets that can be traded for each other.  The first asset is considered the trade asset and the second is the price asset.
 * Market Depth - See <a href="http://en.wikipedia.org/wiki/Order_book_(trading)#Book_depth" target="_blank">Order Book Depth</a>.
@@ -47,6 +73,7 @@ Each resource service repeatedly polls its respective exchanges' service. By def
 Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
 
 ##Benefits
+* Open source community-driven exchange client development ensures that we can evolve as quickly as the crypto currency ecosystem.  
 * Single service endpoint & common data model for all exchange data.
 * No need to manage polling rate-limits.
 * No need to manage exchange data cache durations to prevent duplicate data/processing.
@@ -54,30 +81,17 @@ Once the market data is retrieved it is then normalized to a common data model a
 * New and removed assets are continually updated.
 * Backend exchange clients are from the open source project <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a>.  If you would like to see a new exchange, simply add a bountied feature request.
 
-##Temporary Limitations
-The following limitations can be easily removed with proper funding.  If you would like to see this service scale please donate below.
-
-*  Only publishing to the channel `ticker` to serve as a demo until there is any further interest.
-*  Only 100 clients (unique ip addressses) can connect per day because we are using <a href="http://www.pubnub.com/pricing/" target="_blank">PubNub's Go Cloud Basic Service</a>.
-
 ##Monthly Cost Estimate
-*  AWS Services And Digital Ocean Server Hosting: `$50`
-*  PubNub Subscription (<= 100 Clients): `$15`
-*  PubNub Messaging: `( ( numMessages / 1,000,000 ) * 30 days) * ( numClients + numChannels )`
- * With current usage: `( ( 180,000 / 1,000,000 ) * 30 ) * ( 25 + 2 ) = $145.80`
- * `$5.83` per client.
-*  Total Estimate: `$210.8` to support 25 clients for `ticker` and `ticker.EXCHANGE` channels.
- * `$8.432` per client.
-
-#####Further Notes:
-*  Assumes clients are subscribed for the entire month.
-*  Assumes clients subscribe to either `ticker` or `ticker.EXCHANGE` channels but not both (duplicate data).
-*  Publishing to exchange specific channels could potentially double the messaging costs.
-*  This section will be updated within a week with cost estimates for market depth data as well.
+*  <a href="https://www.digitalocean.com/pricing/" target="_blank">Digital Ocean Server Hosting</a>:
+ * 2 * $10 VPS = `$20`
+ * 2 * $5 VPS = `$10`
+ * Total = `$30`
+* AWS Services = `$30`
+* Total = `$60`
 
 ##Contact
 
-Submit any bugs or feature requests on [Github](https://github.com/marketstem/MarketStem/issues?state=open)  
+Submit any issues or feature requests on [Github](https://github.com/marketstem/MarketStem/issues?state=open)  
 
 marketstem@gmail.com  
   
@@ -155,8 +169,6 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `["trade amount", "price"]`.
 
-  **Note:**  `bids` and `asks` are currently limited to 40 orders in total in an effort to stay under PubNub's 2K message pricing tier.  
-
 + Response 200 (application/json)
 
         [
@@ -198,8 +210,6 @@ Each section below represents a PubNub channel that is available for subscriptio
 * `bids`  Open bid limit orders sorted from highest to lowest price.
 * `asks`  Open ask limit orders sorted from lowest to highest price.
         * Limit orders are formatted as `["trade amount", "price"]`.
-
-  **Note:**  `bids` and `asks` are currently limited to 40 orders in total in an effort to stay under PubNub's 2K message pricing tier.  
 
 + Parameters
     + EXCHANGE (required, string, `JUSTCOIN`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
