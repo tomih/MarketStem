@@ -64,22 +64,26 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
 * Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-05-04T23:31:26Z`.
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
+##Message Frequency
+* Ticker - Each individual ticker is polled for once every five seconds. 
+* Market Depth - Also polled for once every five seconds, however if there is no change it will only be published at most once a minute.
+
+Note: In some cases this is slower to accomodate caching on the exchange side.  
+
 ##Service Architecture
 The backend consists of a globally distributed network of failover nodes.
 Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`.
 Failover is handled on a resource level. If a resource fails to check in within two minutes an identical resource service from another node will take over.
-Each resource service repeatedly polls its respective exchanges' service. By default, each resource is limited to poll at most once every five seconds
-(can be increased if needed), e.g., all tickers will be collected from Kraken every five seconds.  The rate of polling is further limited by individual exchange service rate-limits or by the duration that data is cached by the respective exchange service.
-Once the market data is retrieved it is then normalized to a common data model and published to PubNub.
+Each resource service repeatedly polls its respective exchanges' service.  Once the market data is retrieved it is then normalized to a common data model, published to our network of Slanger nodes and then pushed to you.  
 
 ##Benefits
 * Open source community-driven exchange client development ensures that we can evolve as quickly as the crypto currency ecosystem.  
+ * Backend exchange clients are from <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a>.  If you would like to see a new exchange, simply add a bountied feature request.
 * Single service endpoint & common data model for all exchange data.
 * No need to manage polling rate-limits.
 * No need to manage exchange data cache durations to prevent duplicate data/processing.
 * Increased sampling frequency because we can collect data for a single exchange from different ip addresses.
 * New and removed assets are continually updated.
-* Backend exchange clients are from the open source project <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a>.  If you would like to see a new exchange, simply add a bountied feature request.
 
 ##Monthly Cost Estimate
 *  <a href="https://www.digitalocean.com/pricing/" target="_blank">Digital Ocean Server Hosting</a>:
