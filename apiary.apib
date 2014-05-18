@@ -38,7 +38,7 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
                     httpHost: "marketstem.com"
                 });
             
-                var channel = pusher.subscribe('ticker');
+                var channel = pusher.subscribe('ticker.KRAKEN'); 
                 channel.bind('ticker', function(data) {
                     document.getElementById("ticker").innerHTML = JSON.stringify( data );
                 });
@@ -101,7 +101,10 @@ marketstem@gmail.com
 # Group Market Data
 Each section below represents a PubNub channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.
 # ticker [/ticker]
-## Subscribe to tickers for all markets on all exchanges. [GET]
+## Subscribe to tickers for all markets on all exchanges.  [GET]
+#####Bind Event
+* `ticker`  
+
 #####Ticker Fields
 * `exchange`
 * `market`
@@ -131,6 +134,9 @@ Each section below represents a PubNub channel that is available for subscriptio
 
 # ticker.EXCHANGE [/ticker.{EXCHANGE}]
 ## Subscribe to tickers for all markets on a specified EXCHANGE. [GET]
+#####Bind Event
+* `ticker`  
+
 #####Ticker Fields
 * `exchange`
 * `market`
@@ -161,6 +167,9 @@ Each section below represents a PubNub channel that is available for subscriptio
 
 # depth [/depth]
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
+#####Bind Event
+* `depth`  
+
 #####Market Depth Fields
 * `exchange`
 * `market`
@@ -203,6 +212,9 @@ Each section below represents a PubNub channel that is available for subscriptio
 
 # depth.EXCHANGE [/depth.{EXCHANGE}]
 ## Subscribe to market depth data for all markets on a specified EXCHANGE. [GET]
+#####Bind Event
+* `depth`  
+
 #####Market Depth Fields
 * `exchange`
 * `market`
