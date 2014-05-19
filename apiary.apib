@@ -27,7 +27,6 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
  **Websocket Host:** `marketstem.com`  
  **HTTP Host:** `marketstem.com`  
 
-
         <!DOCTYPE html>
         <head>
             <title>MarketStem Demo</title>
@@ -38,15 +37,17 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
                     httpHost: "marketstem.com"
                 });
             
-                var channel = pusher.subscribe('ticker.KRAKEN'); 
-                channel.bind('ticker', function(data) {
-                    document.getElementById("ticker").innerHTML = JSON.stringify( data );
+                var channelName = "ticker"
+                var bindEvent = "ticker"
+                var tickerChannel = pusher.subscribe( channelName ); 
+                tickerChannel.bind( bindEvent, function( data ) {
+                    document.getElementById( "ticker" ).innerHTML = JSON.stringify( data );
                 });
             </script>
     
-        <body>
-            <p id="ticker">Waiting for ticker data...</p>
-        </body>
+            <body>
+                <p id="ticker">Waiting for ticker data...</p>
+            </body>
         </head>
 
 
