@@ -61,8 +61,8 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
 
 ##Data Format
 * Exchange - Uppercase string, e.g., `BTCE`.
-* Asset - Three character uppercase string, e.g., `USD`.
-* Market - Two tradable asset identifiers concatenated together, e.g., `BTCUSD`.  The second asset is the asset for which the market is priced in.
+* Asset - A string defined by the corresponding exchange, e.g., `USD`.  An attempt is made to normalize assets to a common name across exchanges, e.g., `DOGE -> XDG`.
+* Market - Two tradable asset identifiers concatenated together with an underscore, e.g., `BTC_USD`.  The second asset is the asset for which the market is priced in.
 * Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-05-04T23:31:26Z`.
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
@@ -129,7 +129,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "market":"PPCBTC",
+              "market":"PPC_BTC",
               "volume":"41.49106",
               "high":"0.00486",
               "last":"0.00479",
@@ -162,7 +162,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "market":"PPCBTC",
+              "market":"PPC_BTC",
               "volume":"41.49106",
               "high":"0.00486",
               "last":"0.00479",
@@ -191,7 +191,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "market":"BTCUSD",
+              "market":"BTC_USD",
               "asks":[
                  [
                     "0.06",
@@ -239,7 +239,7 @@ Each section below represents a PubNub channel that is available for subscriptio
 
         [
            {
-              "market":"BTCUSD",
+              "market":"BTC_USD",
               "asks":[
                  [
                     "0.06",
