@@ -73,6 +73,9 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
 Note: In some cases this is slower to accomodate caching on the exchange side.  
 
 ##Service Architecture
+
+<script src="http://www.gliffy.com/diagramEmbed.js" type="text/javascript"> </script><script type="text/javascript"> gliffy_did = "5798364"; embedGliffy(); </script>
+
 The backend consists of a globally distributed network of failover nodes.
 Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`.
 Failover is handled on a resource level. If a resource fails to check in within two minutes an identical resource service from another node will take over.
