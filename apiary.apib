@@ -72,14 +72,14 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
 
 Note: In some cases this is slower to accomodate caching on the exchange side.  
 
-##Service Architecture
-
-<script src="http://www.gliffy.com/diagramEmbed.js" type="text/javascript"> </script><script type="text/javascript"> gliffy_did = "5798364"; embedGliffy(); </script>
+##Data Collection Design
 
 The backend consists of a globally distributed network of failover nodes.
 Nodes consist of a collection of services that are each responsible for their own resource, e.g., all tickers for the exchange Kraken`ticker.KRAKEN`.
 Failover is handled on a resource level. If a resource fails to check in within two minutes an identical resource service from another node will take over.
 Each resource service repeatedly polls its respective exchanges' service.  Once the market data is retrieved it is then normalized to a common data model, published to our network of Slanger nodes and then pushed to you.  
+
+* <a href="http://www.gliffy.com/go/publish/5798364" target="_blank">Complete Service Architecture Diagram</a>  
 
 ##Benefits
 * Open source community-driven exchange client development ensures that we can evolve as quickly as the crypto currency ecosystem.  
