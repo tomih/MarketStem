@@ -37,7 +37,9 @@ This is a streaming web-socket API backed by <a href="https://github.com/stevegr
             <script type="text/javascript">
                 var pusher = new Pusher('7c184500ec35e0786b0e', {
                     wsHost: "marketstem.com",
-                    httpHost: "marketstem.com"
+                    httpHost: "marketstem.com",
+                    disableFlash: true,
+                    disableStats: true
                 });
             
                 var channelName = "ticker"
