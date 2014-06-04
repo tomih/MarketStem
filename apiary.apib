@@ -138,11 +138,11 @@ The following HTTP resources are intended to serve as a companion to the streami
            "VAULTOFSATOSHI"
         ]
 
-# markets [/markets?exchanges=]
+# markets [/exchanges/markets?exchanges=]
 ## Request markets available for a list of one or more exchanges. [GET]
 
 + Parameters
-    + exchanges (required, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges.
+    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
     
 + Response 200 (application/json)
 
@@ -156,7 +156,7 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
 
-# depth [/depth/{EXCHANGE}?markets=&force=]
+# depth [/{EXCHANGE}/depth?markets=&force=]
 ## Request market depth data for an exchange. [GET]
 
 #####Market Depth Fields
