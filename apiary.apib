@@ -23,8 +23,8 @@ MarketStem joins market data from several digital asset exchanges into one conve
 <a href="https://www.vaultofsatoshi.com/" target="_blank">VAULTOFSATOSHI</a>
 
 If you would like to see an additional exchange added you can add a client implementation to the open source project <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a> or put up a <a href="http://xeiam.com/bounties" target="_blank">bounty</a> to have it implemented by the community.
-##Connecting
-This is a streaming web-socket API backed by <a href="https://github.com/stevegraham/slanger" target="_blank">Slanger</a>, an open source alternative to <a href="http://pusher.com/" target="_blank">Pusher</a>.  The <a href="http://pusher.com/docs/client_libraries" target="_blank">client libraries</a> supplied by Pusher can be used to connect and subscribe to channels.
+##Connecting To The Streaming API
+This streaming web-socket API backed by <a href="https://github.com/stevegraham/slanger" target="_blank">Slanger</a>, an open source alternative to <a href="http://pusher.com/" target="_blank">Pusher</a>.  The <a href="http://pusher.com/docs/client_libraries" target="_blank">client libraries</a> supplied by Pusher can be used to connect and subscribe to channels.
 
  **Pusher/Slanger Application Key:** `7c184500ec35e0786b0e`  
  **Websocket Host:** `marketstem.com`  
@@ -207,9 +207,12 @@ The following HTTP resources are intended to serve as a companion to the streami
 
 
 # Group Streaming Market Data
-Each section below represents a channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.
+Each section below represents a channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.  
+
+Note:  The apiary documentation doesn't directly support streaming API's, but it is still good for modeling each channel resource and the data that is supplied by each resource.
 # ticker [/ticker]
 ## Subscribe to tickers for all markets on all exchanges.  [GET]
+
 #####Bind Event
 * `ticker`  
 
@@ -242,6 +245,7 @@ Each section below represents a channel that is available for subscription.  All
 
 # ticker.EXCHANGE [/ticker.{EXCHANGE}]
 ## Subscribe to tickers for all markets on a specified EXCHANGE. [GET]
+
 #####Bind Event
 * `ticker`  
 
@@ -255,6 +259,7 @@ Each section below represents a channel that is available for subscription.  All
 * `low`  The lowest trade price in the last 24 hours.
 * `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
 * `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
+
 + Parameters
     + EXCHANGE (required, string, `BTCE`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
 + Response 200 (application/json)
@@ -275,6 +280,7 @@ Each section below represents a channel that is available for subscription.  All
 
 # depth [/depth]
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
+
 #####Bind Event
 * `depth`  
 
