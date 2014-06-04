@@ -59,13 +59,13 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
 ##Terminology
 * Channel - A Pusher endpoint used to stream a specific type of data, i.e., `ticker.JUSTCOIN` streams all tickers for the exchange JUSTCOIN.
 * Event - Used to indicate the type of data published/subcribed on a channel.  Allows a client to subscribe to a specific event on a given channel. See <a href="http://pusher.com/docs/client_api_guide/client_events" target="_blank">Pusher Events</a> for more information.
-* Asset - Anything that can be traded on the supported exchanges above.
+* Asset - A symbol for anything that can be traded on the supported exchanges above.
 * Market - A pair of assets that can be traded for each other.  The first asset is considered the trade asset and the second is the price asset.
 * Market Depth - See <a href="http://en.wikipedia.org/wiki/Order_book_(trading)#Book_depth" target="_blank">Order Book Depth</a>.
 
 ##Data Format
 * Exchange - Uppercase string, e.g., `BTCE`.
-* Asset - A string defined by the corresponding exchange, e.g., `USD`.  An attempt is made to normalize assets to a common name across exchanges, e.g., `DOGE -> XDG`.  If you notice a discrepency for an asset symbol between exchanges please contact me and I will update it immediately.
+* Asset - Uppercase string, e.g., `USD`.  Assets are normalized to a common symbol across exchanges, e.g., `DOGE -> XDG`.  If you notice a discrepency for an asset symbol between exchanges please contact me and I will update it immediately.
 * Market - Two tradable asset identifiers concatenated together with an underscore, e.g., `BTC_USD`.  The second asset is the asset for which the market is priced in.
 * Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-06-03T05:22:01.641Z`.
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
