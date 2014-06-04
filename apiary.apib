@@ -65,9 +65,9 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
 
 ##Data Format
 * Exchange - Uppercase string, e.g., `BTCE`.
-* Asset - A string defined by the corresponding exchange, e.g., `USD`.  An attempt is made to normalize assets to a common name across exchanges, e.g., `DOGE -> XDG`.
+* Asset - A string defined by the corresponding exchange, e.g., `USD`.  An attempt is made to normalize assets to a common name across exchanges, e.g., `DOGE -> XDG`.  If you notice a discrepency for an asset symbol between exchanges please contact me and I will update it immediately.
 * Market - Two tradable asset identifiers concatenated together with an underscore, e.g., `BTC_USD`.  The second asset is the asset for which the market is priced in.
-* Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-05-04T23:31:26Z`.
+* Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-06-03T05:22:01.641Z`.
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Message Frequency
