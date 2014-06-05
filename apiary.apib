@@ -210,7 +210,7 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
 
-# depth [/{EXCHANGE}/depth?markets=&force=]
+# depth [/{EXCHANGE}/depth?markets=]
 ## Request market depth data for an exchange. [GET]
 
 #####Market Depth Fields
@@ -224,8 +224,7 @@ The following HTTP resources are intended to serve as a companion to the streami
 + Parameters
     + EXCHANGE (required, string, `KRAKEN`) ... The desired exchnage to retrieve market depth data for.
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
-    + force (optional, boolean, `false`) ... Forces a call to the exchange if the data is not currently cached.  Defaults to true.  
-    
+ 
 + Response 200 (application/json)
 
         [
