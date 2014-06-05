@@ -117,6 +117,38 @@ marketstem@gmail.com
 
 # Group Polling Market Data
 The following HTTP resources are intended to serve as a companion to the streaming API.  For example, it is probably useful to initially populate market depth data with an HTTP GET request that will later be refreshed by streaming depth data.
+
+# assets [/assets]
+## Request a list of all known assets across all exchanges. [GET]
+
++ Response 200 (application/json)
+
+        [
+           "UNO",
+           "XDG",
+           "DMD",
+           "DMC",
+           "RYC"
+        ]
+
+# asset aliases [/assets/aliases]
+## Request a map of all asset symbol aliases.  The key asset is the dominant symbol used by this service. [GET]
+
++ Response 200 (application/json)
+
+        {
+           "CNY":[
+              "CNH",
+              "RMB"
+           ],
+           "BTC":[
+              "XBT"
+           ],
+           "XDG":[
+              "DOGE"
+           ]
+        }
+        
 # exchanges [/exchanges]
 ## Request a list of all supported exchanges. [GET]
 
@@ -141,7 +173,26 @@ The following HTTP resources are intended to serve as a companion to the streami
            "VAULTOFSATOSHI"
         ]
 
-# markets [/exchanges/markets?exchanges=]
+# exchange assets [/exchanges/assets?exchanges=]
+## Request assets available for a list of one or more exchanges. [GET]
+
++ Parameters
+    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+    
++ Response 200 (application/json)
+
+        {
+           "JUSTCOIN":[
+              "BTC",
+              "EUR",
+              "USD",
+              "XRP",
+              "LTC",
+              "NOK"
+           ]
+        }
+
+# exchange markets [/exchanges/markets?exchanges=]
 ## Request markets available for a list of one or more exchanges. [GET]
 
 + Parameters
