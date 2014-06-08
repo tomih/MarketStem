@@ -71,8 +71,8 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Message Frequency
-* Ticker - Each individual ticker is polled for once every five seconds. 
-* Market Depth - Also polled for once every five seconds, however if there is no change it will only be published at most once a minute.
+* Ticker - Each individual ticker is polled for once every five seconds and then published. 
+* Market Depth - Also polled for once every five seconds.  If there is no change detected it will only be published with the bind event of `depth-checkin` no more than once a minute if there is no change detected.  If a change is detected it is published as both `depth` and `depth-checkin` events.  It is recommended that you use the HTTP API if you need to populate depth data on startup and then use the streaming API for updates.
 
 Note: In some cases this is slower to accomodate caching on the exchange side.  
 
@@ -330,7 +330,8 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
 
 #####Bind Event
-* `depth`  
+* `depth`  Published to only when a change is detected.
+* `depth-checkin` Published to at most once a minute if there is no change, otherwise immediately if a change is detected.
 
 #####Market Depth Fields
 * `exchange`
@@ -375,7 +376,8 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 # depth.EXCHANGE [/depth.{EXCHANGE}]
 ## Subscribe to market depth data for all markets on a specified EXCHANGE. [GET]
 #####Bind Event
-* `depth`  
+* `depth`  Published to only when a change is detected.
+* `depth-checkin` Published to at most once a minute if there is no change, otherwise immediately if a change is detected.
 
 #####Market Depth Fields
 * `exchange`
