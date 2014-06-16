@@ -421,3 +421,25 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
               "timestamp":"2014-05-06T13:44:40.063Z"
            }
         ]
+
+#Group Polling Convienence Functions  
+
+# asset converter [/assets/convert/{from}?to=&amount=]  
+## Convert between any known currencies from the supported Exchanges.  [GET]  
+
+Conversions are based on the volume weighted average prices built utilizing the `last` value from exchange tickers.  If there are no direct markets avaible to perform the conversion directly, proxy markets, prioritized by 24 hour trading volume are used.  
+
++ Parameters 
+    + from (required, string, `USD`) ... Asset to convert.  
+    + to (required, string, `PPC,GBP,XPM`) ... A comma delimited list of assets to convert to.
+    + amount (optional, number, `123.456`) ... Value amount to convert.  Defaults to 1.
+        
++ Response 200 (application/json)
+
+        {
+           "EUR":435.45,
+           "PPC":332.39491219,
+           "USD":585.33,
+           "XPM":1316.45350289,
+           "XDG":1565236.17016794
+        }
