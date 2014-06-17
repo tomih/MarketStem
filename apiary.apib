@@ -428,8 +428,9 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 # asset converter [/assets/convert/{from}?to=&amount=]  
 ## Convert between any known currencies from the supported Exchanges.  [GET]  
 
-Conversions are based on the volume weighted average prices built utilizing the `last` value from exchange tickers.  If there are no direct markets avaible to perform the conversion directly, proxy markets, prioritized by 24 hour trading volume are used.  
-
+Conversions are based on the 15 minute volume weighted average prices built utilizing the `last` value from exchange tickers.  If there are no direct markets avaible to perform the conversion directly, proxy markets, prioritized by 24 hour trading volume, are used.  
+  
+  <a href="http://www.gliffy.com/go/publish/5876944" target="_blank">Conversion Algorithm Diagram</a>
 + Parameters 
     + from (required, string, `USD`) ... Asset to convert.  
     + to (required, string, `PPC,GBP,XPM`) ... A comma delimited list of assets to convert to.
