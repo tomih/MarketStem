@@ -209,6 +209,42 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
 
+# ticker [/{EXCHANGE}/ticker?markets=]
+## Request ticker data for an exchange. [GET]
+
+#####Ticker Fields
+* `exchange`
+* `market`
+* `last`  The price of the most recent trade.
+* `bid`  The best bid price.
+* `ask`  The best ask price.
+* `high`  The highest trade price in the last 24 hours.
+* `low`  The lowest trade price in the last 24 hours.
+* `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
+* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
+
+        
++ Parameters
+    + EXCHANGE (required, string, `KRAKEN`) ... The desired exchnage to retrieve market depth data for.
+    + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
+ 
++ Response 200 (application/json)
+
+        [
+           {
+              "market":"PPC_BTC",
+              "volume":"41.49106",
+              "high":"0.00486",
+              "last":"0.00479",
+              "low":"0.00471",
+              "ask":"0.00482",
+              "exchange":"BTCE",
+              "bid":"0.00479",
+              "timestamp":"2014-05-04T23:31:26Z"
+           }
+        ]
+
+
 # depth [/{EXCHANGE}/depth?markets=]
 ## Request market depth data for an exchange. [GET]
 
