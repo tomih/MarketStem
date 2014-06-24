@@ -460,6 +460,79 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
            }
         ]
 
+# trades [/trades]
+## Subscribe to public trade data for all markets on all exchanges.  [GET]  
+
+Currently unsupported for CAMPBX, CRYPTOTRADE, COINBASE, CRYPTSY, ITBIT and LAKEBTC.
+#####Bind Event
+* `trades`  
+
+#####Trade Fields
+* `id` Optional id supplied by the respective exchange.
+* `market`
+* `amount`
+* `price`
+* `timestamp` Optional timestamp supplied by the exchange representing when the trade was executed.
+
++ Response 200 (application/json)
+
+        {
+           "BITSTAMP":[
+              {
+                 "market":"BTC_USD",
+                 "amount":"0.01019541",
+                 "price":"588.49",
+                 "id":"5337198",
+                 "timestamp":"2014-06-23T23:01:07Z"
+              },
+              {
+                 "market":"BTC_USD",
+                 "amount":"0.04222599",
+                 "price":"588.5",
+                 "id":"5337199",
+                 "timestamp":"2014-06-23T23:01:10Z"
+              }
+           ]
+        }
+
+# trades.EXCHANGE [/trades.{EXCHANGE}]
+## Subscribe to public trade data for all markets on a specified EXCHANGE. [GET]
+
+Currently unsupported for CAMPBX, CRYPTOTRADE, COINBASE, CRYPTSY, ITBIT and LAKEBTC.
+#####Bind Event
+* `trades`  
+
+#####Trade Fields
+* `id` Optional id supplied by the respective exchange.
+* `market`
+* `amount`
+* `price`
+* `timestamp` Optional timestamp supplied by the exchange representing when the trade was executed.
+
++ Parameters
+    + EXCHANGE (required, string, `BITSTAMP`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
+
++ Response 200 (application/json)
+
+        {
+           "BITSTAMP":[
+              {
+                 "market":"BTC_USD",
+                 "amount":"0.01019541",
+                 "price":"588.49",
+                 "id":"5337198",
+                 "timestamp":"2014-06-23T23:01:07Z"
+              },
+              {
+                 "market":"BTC_USD",
+                 "amount":"0.04222599",
+                 "price":"588.5",
+                 "id":"5337199",
+                 "timestamp":"2014-06-23T23:01:10Z"
+              }
+           ]
+        }
+        
 #Group Polling Convienence Functions  
 
 # asset converter [/assets/convert/{from}?to=&amount=]  
