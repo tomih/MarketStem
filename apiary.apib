@@ -422,6 +422,7 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 
 + Parameters
     + EXCHANGE (required, string, `BTCE`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
+    
 + Response 200 (application/json)
 
         [
@@ -437,6 +438,136 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
               "timestamp":"2014-05-04T23:31:26Z"
            }
         ]
+
+# aggregate_ticker [/aggregate_ticker]
+## Subscribe to aggregate ticker data for all markets. [GET]
+
+An aggregate ticker is intended to give a statistical summary of market data across all exchanges.  If an exchange does not report its trade volume via ticker data it is excluded.  ANXPRO is also excluded as they report the same trade volume across all price assets.
+
+#####Bind Event
+* `aggregate_ticker` 
+
+#####Aggregate Ticker Fields
+* `market`
+* `vwaLast`Volume weighted average last price.
+* `vwaLast15` 15 minute moving volume weighted average last price.
+* `vwaBid` Volume weighted average bid price.
+* `vwaAsk` Volume weighted average ask price.
+* `high`  The single highest trade price in the last 24 hours.
+* `low`  The single lowest trade price in the last 24 hours.
+* `totalVolume` The sum of the volume traded in the last 24 hours across all exchanges, denominated in the trade asset.
+* `totalTradeAssetVolume` The sum of the total volume for this trade asset across all markets.  See field `allMarketVolumes` for a list of markets used.
+* `totalTradeAssetVolumeForPriceAssetType` The sum of the total volume for this trade asset across all markets for which the price asset type is the same as this markets' price asset type (fiat or digital).  
+* `timestamp` Calculation timestamp.
+* `exchangeVolumes` Exchange volumes used for this ticker.
+* `allMarketVolumes` The total volume for all other markets that have the same trade asset.
+
++ Response 200 (application/json)
+
+        [
+           {
+                "market":"BTC_USD",
+                "vwaLast":"640.2271916",
+                "vwaLast15":"639.1189731528572",
+                "vwaBid":"639.6690524",
+                "vwaAsk":"640.96108197",
+                "high":"700",
+                "low":"587.25",
+                "totalVolume":"51322.46081245",
+                "totalTradeAssetVolume":"69279.57128391",
+                "totalTradeAssetVolumeForPriceAssetType":"69264.68169935",
+                "timestamp":"2014-06-30T23:58:53.116Z",
+                "exchangeVolumes":{
+                     "BTER":"1.0447",
+                     "BITSTAMP":"15503.24383652",
+                     "VAULTOFSATOSHI":"11.16198578",
+                     "HITBTC":"966.94",
+                     "JUSTCOIN":"19.32159",
+                     "KRAKEN":"18.97691245",
+                     "BITFINEX":"21638.59924262",
+                     "CRYPTOTRADE":"0.92367508",
+                     "BTCE":"13162.24887"
+                }
+                "allMarketVolumes":{
+                     "BTC_NOK":"40.02467",
+                     "BTC_USD":"51322.46081245",
+                     "BTC_CAD":"216.45633991",
+                     "BTC_XRP":"14.88958456",
+                     "BTC_GBP":"3.82988",
+                     "BTC_PLN":"13.11620635",
+                     "BTC_EUR":"2980.85478064",
+                     "BTC_CNY":"14521.88168",
+                     "BTC_RUR":"166.05733"
+                }
+           }
+        ]
+
+# aggregate_ticker.MARKET [/aggregate_ticker.{MARKET}]
+## Subscribe to aggregate ticker data for a specified market. [GET]
+
+An aggregate ticker is intended to give a statistical summary of market data across all exchanges.  If an exchange does not report its trade volume via ticker data it is excluded.  ANXPRO is also excluded as they report the same trade volume across all price assets.
+
+#####Bind Event
+* `aggregate_ticker` 
+
+#####Aggregate Ticker Fields
+* `market`
+* `vwaLast`Volume weighted average last price.
+* `vwaLast15` 15 minute moving volume weighted average last price.
+* `vwaBid` Volume weighted average bid price.
+* `vwaAsk` Volume weighted average ask price.
+* `high`  The single highest trade price in the last 24 hours.
+* `low`  The single lowest trade price in the last 24 hours.
+* `totalVolume` The sum of the volume traded in the last 24 hours across all exchanges, denominated in the trade asset.
+* `totalTradeAssetVolume` The sum of the total volume for this trade asset across all markets.  See field `allMarketVolumes` for a list of markets used.
+* `totalTradeAssetVolumeForPriceAssetType` The sum of the total volume for this trade asset across all markets for which the price asset type is the same as this markets' price asset type (fiat or digital).  
+* `timestamp` Calculation timestamp.
+* `exchangeVolumes` Exchange volumes used for this ticker.
+* `allMarketVolumes` The total volume for all other markets that have the same trade asset.
+
++ Parameters
+    + MARKET (required, string, `BTC_USD`) ... Market specific aggregate ticker channel.  The market string must be UPPERCASE.
+ 
++ Response 200 (application/json)
+
+        [
+           {
+                "market":"BTC_USD",
+                "vwaLast":"640.2271916",
+                "vwaLast15":"639.1189731528572",
+                "vwaBid":"639.6690524",
+                "vwaAsk":"640.96108197",
+                "high":"700",
+                "low":"587.25",
+                "totalVolume":"51322.46081245",
+                "totalTradeAssetVolume":"69279.57128391",
+                "totalTradeAssetVolumeForPriceAssetType":"69264.68169935",
+                "timestamp":"2014-06-30T23:58:53.116Z",
+                "exchangeVolumes":{
+                     "BTER":"1.0447",
+                     "BITSTAMP":"15503.24383652",
+                     "VAULTOFSATOSHI":"11.16198578",
+                     "HITBTC":"966.94",
+                     "JUSTCOIN":"19.32159",
+                     "KRAKEN":"18.97691245",
+                     "BITFINEX":"21638.59924262",
+                     "CRYPTOTRADE":"0.92367508",
+                     "BTCE":"13162.24887"
+                }
+                "allMarketVolumes":{
+                     "BTC_NOK":"40.02467",
+                     "BTC_USD":"51322.46081245",
+                     "BTC_CAD":"216.45633991",
+                     "BTC_XRP":"14.88958456",
+                     "BTC_GBP":"3.82988",
+                     "BTC_PLN":"13.11620635",
+                     "BTC_EUR":"2980.85478064",
+                     "BTC_CNY":"14521.88168",
+                     "BTC_RUR":"166.05733"
+                }
+           }
+        ]
+
 
 # depth [/depth]
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
