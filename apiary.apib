@@ -222,6 +222,60 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
 
+# fee schedule [/{EXCHANGE}/feeschedule?markets=]
+## Request a mapping of markets to fee schedules for a given exchange. [GET]
+
+#####Fee Schedule Fields
+* `fees` A list of commission fee percentages that correspond to a given trade volume range. `[ lower, upper )`   
+  * `commissionPercentage` 
+  * `commissionFlatRate` Only included if a flat rate exists.  Currently only used for COINBASE.
+  * `lower` Inclusive lower trade volume boundary defining the range for which the fee is applicable.
+  * `upper` Exclusive upper trade volume boundary defining the range for which the fee is applicable.  This field is not included if there is no upper bound.  
+* `volumeAsset` The trade volume asset denomination used to define the fee schedule ranges.  This field is not included if there are no ranges.
+        
++ Parameters
+    + EXCHANGE (required, string, `JUSTCOIN`) ... The desired exchange to retrieve market depth data for.
+    + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
+ 
++ Response 200 (application/json)
+
+        {
+           "BTC_LTC":{
+              "fees":[
+                 {
+                    "commissionPercentage":"0.3",
+                    "lower":"15",
+                    "upper":"30"
+                 },
+                 {
+                    "commissionPercentage":"0.4",
+                    "lower":"5",
+                    "upper":"15"
+                 },
+                 {
+                    "commissionPercentage":"0.5",
+                    "lower":"0",
+                    "upper":"5"
+                 },
+                 {
+                    "commissionPercentage":"0.2",
+                    "lower":"30",
+                    "upper":"50"
+                 },
+                 {
+                    "commissionPercentage":"0.1",
+                    "lower":"50",
+                    "upper":"100"
+                 },
+                 {
+                    "commissionPercentage":"0",
+                    "lower":"100"
+                 }
+              ],
+              "volumeAsset":"BTC"
+           }
+        }
+
 # ticker [/{EXCHANGE}/ticker?markets=]
 ## Request ticker data for an exchange. [GET]
 
@@ -238,7 +292,7 @@ The following HTTP resources are intended to serve as a companion to the streami
 
         
 + Parameters
-    + EXCHANGE (required, string, `KRAKEN`) ... The desired exchnage to retrieve market depth data for.
+    + EXCHANGE (required, string, `KRAKEN`) ... The desired exchange to retrieve market depth data for.
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
  
 + Response 200 (application/json)
@@ -332,7 +386,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
         * Limit orders are formatted as `["trade amount", "price"]`.
         
 + Parameters
-    + EXCHANGE (required, string, `KRAKEN`) ... The desired exchnage to retrieve market depth data for.
+    + EXCHANGE (required, string, `KRAKEN`) ... The desired exchange to retrieve market depth data for.
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
  
 + Response 200 (application/json)
