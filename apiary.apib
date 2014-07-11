@@ -44,7 +44,11 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
                     disableFlash: true,
                     disableStats: true
                 });
-            
+                
+                pusher.connection.bind('disconnected', function(data) {
+                    pusher.connection.connect();
+                });
+  
                 var channelName = "ticker"
                 var bindEvent = "ticker"
                 var tickerChannel = pusher.subscribe( channelName ); 
