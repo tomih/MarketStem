@@ -42,6 +42,14 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
                 var pusher = new Pusher('7c184500ec35e0786b0e', {
                     wsHost: "marketstem.com",
                     httpHost: "marketstem.com",
+                    authEndpoint:"http://marketstem.com/pusher/auth",
+                    auth:{
+                       params:{
+                          api_key:"key",
+                          api_signature:"signature",
+                          nonce:1
+                       }
+                    },
                     disableFlash: true,
                     disableStats: true
                 });
@@ -50,7 +58,7 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
                     pusher.connection.connect();
                 });
   
-                var channelName = "ticker"
+                var channelName = "presence-ticker"
                 var bindEvent = "ticker"
                 var tickerChannel = pusher.subscribe( channelName ); 
                 tickerChannel.bind( bindEvent, function( data ) {
@@ -429,7 +437,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 Each section below represents a channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.  
 
 Note:  The apiary documentation doesn't directly support streaming API's, but it is still good for modeling each channel resource and the data that is supplied by each resource.
-# ticker [/ticker]
+# ticker [/presence-ticker]
 ## Subscribe to tickers for all markets on all exchanges.  [GET]
 
 #####Bind Event
@@ -462,7 +470,7 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
            }
         ]
 
-# ticker.EXCHANGE [/ticker.{EXCHANGE}]
+# ticker.EXCHANGE [/presence-ticker.{EXCHANGE}]
 ## Subscribe to tickers for all markets on a specified EXCHANGE. [GET]
 
 #####Bind Event
@@ -498,7 +506,7 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
            }
         ]
 
-# aggregate_ticker [/aggregate_ticker]
+# aggregate_ticker [/presence-aggregate_ticker]
 ## Subscribe to aggregate ticker data for all markets. [GET]
 
 An aggregate ticker is intended to give a statistical summary of market data across all exchanges.  If an exchange does not report its trade volume via ticker data it is excluded.  ANXPRO is also excluded as they report the same trade volume across all price assets.
@@ -561,7 +569,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
            }
         ]
 
-# aggregate_ticker.MARKET [/aggregate_ticker.{MARKET}]
+# aggregate_ticker.MARKET [/presence-aggregate_ticker.{MARKET}]
 ## Subscribe to aggregate ticker data for a specified market. [GET]
 
 An aggregate ticker is intended to give a statistical summary of market data across all exchanges.  If an exchange does not report its trade volume via ticker data it is excluded.  ANXPRO is also excluded as they report the same trade volume across all price assets.
@@ -628,7 +636,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
         ]
 
 
-# depth [/depth]
+# depth [/presence-depth]
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
 
 #####Bind Event
@@ -675,7 +683,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
            }
         ]
 
-# depth.EXCHANGE [/depth.{EXCHANGE}]
+# depth.EXCHANGE [/presence-depth.{EXCHANGE}]
 ## Subscribe to market depth data for all markets on a specified EXCHANGE. [GET]
 #####Bind Event
 * `depth`  Published to only when a change is detected.
@@ -724,7 +732,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
            }
         ]
 
-# trades [/trades]
+# trades [/presence-trades]
 ## Subscribe to public trade data for all markets on all exchanges.  [GET]  
 
 Currently unsupported for CAMPBX, CRYPTOTRADE, COINBASE and LAKEBTC.
@@ -759,7 +767,7 @@ Currently unsupported for CAMPBX, CRYPTOTRADE, COINBASE and LAKEBTC.
            ]
         }
 
-# trades.EXCHANGE [/trades.{EXCHANGE}]
+# trades.EXCHANGE [/presence-trades.{EXCHANGE}]
 ## Subscribe to public trade data for all markets on a specified EXCHANGE. [GET]
 
 Currently unsupported for CAMPBX, CRYPTOTRADE, COINBASE and LAKEBTC.
