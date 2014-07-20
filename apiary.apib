@@ -2,7 +2,10 @@ FORMAT: 1A
 HOST: http://marketstem.com/api
 
 # marketstem
-MarketStem joins market data from several digital asset exchanges into one convenient streaming and polling API.
+MarketStem joins market data from several digital asset exchanges into one convenient streaming and polling API.  Any values can be used for the Pusher client parameters `api_key`, `api_signature`, and `nonce`.  
+
+# Alerts
+All streaming data will start publishing on `presence-` prefixed channels only on 7/27/2014.  See the javascript example below for how to connect to a presence channel.  
 
 ##Supported Exchanges
 <a href="https://anxpro.com/" target="_blank">ANXPRO</a>,
