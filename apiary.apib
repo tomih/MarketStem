@@ -422,7 +422,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 
 
 # Group Streaming Market Data
-Each section below represents a channel that is available for subscription.  All data objects are returned within a json array.  An effort is made to include multiple objects in a single message if the corresponding exchange offers retrieval of multiple objects in a single call.  
+Each section below represents a channel that is available for subscription.  All channel names must be prefixed with `presence-`.
 
 Note:  The apiary documentation doesn't directly support streaming API's, but it is still good for modeling each channel resource and the data that is supplied by each resource.
 # ticker [/presence-ticker]
