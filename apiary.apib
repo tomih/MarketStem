@@ -90,8 +90,10 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
 ##Message Frequency
 * Ticker - Each individual ticker is polled for once every five seconds and then published. 
 * Aggregate Ticker - Updated for every exchange ticker received and published at most once every five seconds for each market.
-* Market Depth - Also polled for once every five seconds.  If there is no change detected it will only be published with the bind event of `depth-checkin` no more than once a minute.  If a change is detected it is published as both `depth` and `depth-checkin` events.  It is recommended that you use the HTTP API if you need to populate depth data on startup and then use the streaming API for updates.  The entire market depth is published for each event.
-Note: In some cases this is slower to accomodate caching on the exchange side.  
+* Market Depth - Also polled for once every five seconds.  If there is no change detected it will only be published with the bind event of `depth-checkin` no more than once a minute.  If a change is detected it is published as both `depth` and `depth-checkin` events.  It is recommended that you use the HTTP API if you need to populate depth data on startup and then use the streaming API for updates.  The entire market depth is published for each event.  
+  
+Note: In some cases this is slower to accomodate caching on the exchange side. 
+
 ##Data Collection Design
 
 The backend consists of a globally distributed network of failover nodes.
