@@ -179,6 +179,21 @@ The following HTTP resources are intended to serve as a companion to the streami
               "BTC_NOK"
            ]
         }
+        
+# exchange asset aliases [/exchanges/asset_aliases?exchanges=]
+## Request asset aliases specific to each exchange. [GET]
+
+The purpose of asset specific aliases is to remove symbol conflicts between different assets on different exchanges.  For example, SRC refers to Securecoin on the majority of exchanges, except for on Poloniex where it represents SourceCoin.  In this case SRC on Poloniex is mapped to SRCC.
++ Parameters
+    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+    
++ Response 200 (application/json)
+
+        {  
+           "POLONIEX":{  
+              "SRC":"SRCC"
+           }
+        }
 
 # fee schedule [/{EXCHANGE}/feeschedule?markets=]
 ## Request a mapping of markets to fee schedules for a given exchange. [GET]
