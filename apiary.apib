@@ -185,7 +185,7 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
 
-# exchange markets [/exchanges/markets?exchanges=]
+# exchange markets [/exchanges/markets{?exchanges}]
 ## Request markets available for a list of one or more exchanges. [GET]
 
 + Parameters
@@ -226,7 +226,7 @@ The following HTTP resources are intended to serve as a companion to the streami
            ]
         }
         
-# exchange asset aliases [/exchanges/asset_aliases?exchanges=]
+# exchange asset aliases [/exchanges/asset_aliases{?exchanges}]
 ## Request asset aliases specific to each exchange. [GET]
 
 The purpose of asset specific aliases is to remove symbol conflicts between different assets on different exchanges.  For example, SRC refers to Securecoin on the majority of exchanges, except for on Poloniex where it represents SourceCoin.  In this case SRC on Poloniex is mapped to SRCC.
@@ -264,7 +264,7 @@ The purpose of asset specific aliases is to remove symbol conflicts between diff
            }
         }
 
-# fee schedule [/{EXCHANGE}/feeschedule?markets=]
+# fee schedule [/{EXCHANGE}/feeschedule{?markets}]
 ## Request a mapping of markets to fee schedules for a given exchange. [GET]
 
 Note: For exchanges with maker/taker models, only maker fee schedules are supplied.  
@@ -343,7 +343,7 @@ Note: For exchanges with maker/taker models, only maker fee schedules are suppli
            }
         }
 
-# ticker [/{EXCHANGE}/ticker?markets=]
+# ticker [/{EXCHANGE}/ticker{?markets}]
 ## Request ticker data for an exchange. [GET]
 
 #####Ticker Fields
@@ -401,7 +401,7 @@ Note: For exchanges with maker/taker models, only maker fee schedules are suppli
            }
         ]
 
-# aggregate ticker [/aggregate/ticker?markets=]
+# aggregate ticker [/aggregate/ticker{?markets}]
 ## Request aggregate ticker data for the requested markets. [GET]
 
 An aggregate ticker is intended to give a statistical summary of market data across all exchanges.  If an exchange does not report its trade volume via ticker data it is excluded.  ANXPRO is also excluded as they report the same trade volume across all price assets.
@@ -464,7 +464,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
            }
         ]
 
-# depth [/{EXCHANGE}/depth?markets=]
+# depth [/{EXCHANGE}/depth{?markets}]
 ## Request market depth data for an exchange. [GET]
 
 #####Market Depth Fields
@@ -1015,7 +1015,7 @@ Currently unsupported for CAMPBX, COINBASE and LAKEBTC.
         
 #Group Polling Convenience Functions  
 
-# asset converter [/assets/convert/{from}?to=&amount=]  
+# asset converter [/assets/convert/{from}{?to,amount}]  
 ## Convert between any known currencies from the supported Exchanges.  [GET]  
 
 Conversions are based on the 15 minute volume weighted average prices built utilizing the `last` value from exchange tickers.  If there are no direct markets avaible to perform the conversion directly, proxy markets, prioritized by 24 hour trading volume, are used.  
