@@ -143,11 +143,34 @@ The following HTTP resources are intended to serve as a companion to the streami
            "VAULTOFSATOSHI"
         ]
 
-# exchange assets [/exchanges/assets?exchanges=]
+# exchange assets [/exchanges/assets{?exchanges}]
 ## Request assets available for a list of one or more exchanges. [GET]
 
 + Parameters
-    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+    + exchanges (optional, string, `JUSTCOIN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     
 + Response 200 (application/json)
 
@@ -166,7 +189,30 @@ The following HTTP resources are intended to serve as a companion to the streami
 ## Request markets available for a list of one or more exchanges. [GET]
 
 + Parameters
-    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+    + exchanges (optional, string, `KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     
 + Response 200 (application/json)
 
@@ -185,7 +231,30 @@ The following HTTP resources are intended to serve as a companion to the streami
 
 The purpose of asset specific aliases is to remove symbol conflicts between different assets on different exchanges.  For example, SRC refers to Securecoin on the majority of exchanges, except for on Poloniex where it represents SourceCoin.  In this case SRC on Poloniex is mapped to SRCC.
 + Parameters
-    + exchanges (optional, string, `JUSTCOIN,KRAKEN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+    + exchanges (optional, string, `JUSTCOIN`) ... A comma delimited list of exchanges, defaults to all exchanges.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     
 + Response 200 (application/json)
 
@@ -210,6 +279,29 @@ Note: For exchanges with maker/taker models, only maker fee schedules are suppli
         
 + Parameters
     + EXCHANGE (required, string, `JUSTCOIN`) ... The desired exchange to retrieve market depth data for.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
  
 + Response 200 (application/json)
@@ -268,6 +360,29 @@ Note: For exchanges with maker/taker models, only maker fee schedules are suppli
         
 + Parameters
     + EXCHANGE (required, string, `KRAKEN`) ... The desired exchange to retrieve market depth data for.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
  
 + Response 200 (application/json)
@@ -362,6 +477,29 @@ An aggregate ticker is intended to give a statistical summary of market data acr
         
 + Parameters
     + EXCHANGE (required, string, `KRAKEN`) ... The desired exchange to retrieve market depth data for.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     + markets (optional, string, `BTC_USD,BTC_XDG`) ... A comma delimited list of markets.  Defaults to all markets.  
  
 + Response 200 (application/json)
@@ -495,6 +633,29 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 
 + Parameters
     + EXCHANGE (required, string, `BTCE`) ... Exchange specific ticker channel.  The exchange name must be UPPERCASE.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `COINBASE`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
     
 + Response 200 (application/json)
 
@@ -705,6 +866,28 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 
 + Parameters
     + EXCHANGE (required, string, `JUSTCOIN`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CAMPBX`
+            + `CEXIO`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `LAKEBTC`
+            + `MINTPAL`
+            + `POLONIEX`
+            + `VAULTOFSATOSHI`
 
 + Response 200 (application/json)
 
@@ -789,6 +972,25 @@ Currently unsupported for CAMPBX, COINBASE and LAKEBTC.
 
 + Parameters
     + EXCHANGE (required, string, `BITSTAMP`) ... Exchange specific market depth channel.  The exchange name must be UPPERCASE.
+        + Values
+            + `ANXPRO`
+            + `BITCUREX`
+            + `BITFINEX`
+            + `BITSTAMP`
+            + `BITTREX`
+            + `BTCE`
+            + `BTCHINA`
+            + `BTER`
+            + `CEXIO`
+            + `CRYPTONIT`
+            + `CRYPTOTRADE`
+            + `CRYPTSY`
+            + `HITBTC`
+            + `ITBIT`
+            + `JUSTCOIN`
+            + `KRAKEN`
+            + `MINTPAL`
+            + `VAULTOFSATOSHI`
 
 + Response 200 (application/json)
 
