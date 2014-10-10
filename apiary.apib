@@ -44,15 +44,15 @@ If you would like to see an additional exchange added you can add a client imple
 
 ##Data Format
 * Exchange - Uppercase string, e.g., `BTCE`.
-* Asset - Uppercase string, e.g., `USD`.  Assets are normalized to a common symbol across exchanges, e.g., `DOGE -> XDG`.  If you notice a discrepency for an asset symbol between exchanges please contact api@coinalytics.co and we will update it immediately.
+* Asset - Uppercase string, e.g., `USD`.  Assets are normalized to a common symbol across exchanges, e.g., `DOGE -> XDG`.  If you notice a discrepency for an asset symbol between exchanges, please contact api@coinalytics.co and we will update it immediately.
 * Market - Two tradable asset identifiers concatenated together with an underscore, e.g., `BTC_USD`.  The former is considered the trade asset and the latter is the price asset.
 * Timestamps - Represented as <a href="http://en.wikipedia.org/wiki/ISO_8601" target="_blank">ISO 8601</a> formatted strings, e.g., `2014-06-03T05:22:01.641Z`.
 * Numbers - See <a href="http://docs.oracle.com/javase/8/docs/api/java/math/BigDecimal.html#toPlainString" target="_blank">Java's BigDecimal plain string format</a>.
 
 ##Message Frequency
-* Ticker - Each individual ticker is polled for once every five seconds and then published. 
+* Ticker - Each individual ticker is polled once every five seconds and then published. 
 * Aggregate Ticker - Updated for every exchange ticker received and published at most once every five seconds for each market.
-* Market Depth - Also polled for once every five seconds.  If there is no change detected it will only be published with the bind event of `depth-checkin` no more than once a minute.  If a change is detected it is published as both `depth` and `depth-checkin` events.  It is recommended that you use the HTTP API if you need to populate depth data on startup and then use the streaming API for updates.  The entire market depth is published for each event.  
+* Market Depth - Also polled once every five seconds.  If there is no change detected it will only be published with the bind event of `depth-checkin` no more than once a minute.  If a change is detected it is published as both `depth` and `depth-checkin` events.  It is recommended that you use the HTTP API if you need to populate depth data on startup and then use the streaming API for updates.  The entire market depth is published for each event.  
   
 Note: In some cases this is slower to accomodate caching on the exchange side. 
 
@@ -66,18 +66,18 @@ Each resource service repeatedly polls its respective exchanges' service.  Once 
 * <a href="http://www.gliffy.com/go/publish/5798364" target="_blank">Complete Service Architecture Diagram</a>  
 
 ##Benefits
-* Open source community-driven exchange client development ensures that we can evolve as quickly as the crypto currency ecosystem.  
+* Open source community-driven exchange client development ensures that we can evolve as quickly as the cryptocurrency ecosystem.  
  * Backend exchange clients are from <a href="https://github.com/timmolter/XChange" target="_blank">XChange</a>.  If you would like to see a new exchange, simply add a bountied feature request.
-* Single service endpoint & common data model for all exchange data.
+* Single-service endpoint and a common data model for all exchange data.
 * No need to manage polling rate-limits.
 * No need to manage exchange data cache durations to prevent duplicate data/processing.
-* Increased sampling frequency because we can collect data for a single exchange from different ip addresses.
+* Increased sampling frequency because of data collection for a single exchange from different IP addresses.
 * New and removed assets are continually updated.
 
 ##Contact
 api@coinalytics.co   
 
-Submit any issues or feature requests on [Github](https://github.com/marketstem/MarketStem/issues?state=open)  
+Please submit any issues or feature requests on [Github](https://github.com/marketstem/MarketStem/issues?state=open)  
 # Group Polling Market Data
 The following HTTP resources are intended to serve as a companion to the streaming API.  For example, it is probably useful to initially populate market depth data with an HTTP GET request that will later be refreshed by streaming depth data.
 
@@ -359,7 +359,7 @@ Note: For exchanges with maker/taker models, only maker fee schedules are suppli
 * `high`  The highest trade price in the last 24 hours.
 * `low`  The lowest trade price in the last 24 hours.
 * `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
-* `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
+* `timestamp`  If not provided by the exchange, reflects the time initially received by our backend service.
 
         
 + Parameters
@@ -584,7 +584,7 @@ The streaming web-socket API is backed by <a href="https://github.com/stevegraha
         </head>
 
 
-Note:  The apiary documentation doesn't directly support streaming API's, but it is still good for modeling each channel resource and the data that is supplied.
+Note:  The apiary documentation doesn't directly support streaming APIs, but it is still good for modeling each channel resource and the data supplied.
 # ticker [/presence-ticker]
 ## Subscribe to tickers for all markets on all exchanges.  [GET]
 
@@ -599,7 +599,7 @@ Note:  The apiary documentation doesn't directly support streaming API's, but it
 * `ask`  The best ask price.
 * `high`  The highest trade price in the last 24 hours.
 * `low`  The lowest trade price in the last 24 hours.
-* `volume`  The volume traded in the last 24 hours, denominated in the trade asset.
+* `volume`  The volume traded in the last 24 hours denominated in the trade asset.
 * `timestamp`  If not provided by the exchange it reflects the time initially received by our backend service.
 
 + Response 200 (application/json)
@@ -687,18 +687,18 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 
 #####Aggregate Ticker Fields
 * `market`
-* `vwaLast`Volume weighted average last price.
+* `vwaLast` Volume weighted average last price.
 * `vwaLast15` 15 minute moving volume weighted average last price.
 * `vwaBid` Volume weighted average bid price.
 * `vwaAsk` Volume weighted average ask price.
 * `high`  The single highest trade price in the last 24 hours.
 * `low`  The single lowest trade price in the last 24 hours.
 * `totalVolume` The sum of the volume traded in the last 24 hours across all exchanges, denominated in the trade asset.
-* `totalTradeAssetVolume` The sum of the total volume for this trade asset across all markets.  See field `allMarketVolumes` for a list of markets used.
-* `totalTradeAssetVolumeForPriceAssetType` The sum of the total volume for this trade asset across all markets for which the price asset type is the same as this markets' price asset type (fiat or digital).  
+* `totalTradeAssetVolume` The sum of the total volume for a trade asset across all markets.  See field `allMarketVolumes` for a list of markets used.
+* `totalTradeAssetVolumeForPriceAssetType` The sum of the total volume for a trade asset across all markets for which the price asset type is the same as markets' price asset type (fiat or digital).  
 * `timestamp` Calculation timestamp.
 * `exchangeVolumes` Exchange volumes used for this ticker.
-* `allMarketVolumes` The total volume for all other markets that have the same trade asset.
+* `allMarketVolumes` Total volume for all other markets that have the same trade asset.
 
 + Response 200 (application/json)
 
@@ -750,7 +750,7 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 
 #####Aggregate Ticker Fields
 * `market`
-* `vwaLast`Volume weighted average last price.
+* `vwaLast` Volume weighted average last price.
 * `vwaLast15` 15 minute moving volume weighted average last price.
 * `vwaBid` Volume weighted average bid price.
 * `vwaAsk` Volume weighted average ask price.
@@ -811,8 +811,8 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 ## Subscribe to market depth data for all markets on all exchanges. [GET]
 
 #####Bind Event
-* `depth`  Published to only when a change is detected.
-* `depth-checkin` Published to at most once a minute if there is no change, otherwise immediately if a change is detected.
+* `depth`  Published only when a change is detected.
+* `depth-checkin` Published at most once a minute if there is no change, otherwise immediately if a change is detected.
 
 #####Market Depth Fields
 * `exchange`
@@ -857,8 +857,8 @@ An aggregate ticker is intended to give a statistical summary of market data acr
 # depth.EXCHANGE [/presence-depth.{EXCHANGE}]
 ## Subscribe to market depth data for all markets on a specified EXCHANGE. [GET]
 #####Bind Event
-* `depth`  Published to only when a change is detected.
-* `depth-checkin` Published to at most once a minute if there is no change, otherwise immediately if a change is detected.
+* `depth`  Published only when a change is detected.
+* `depth-checkin` Published at most once a minute if there is no change, otherwise immediately if a change is detected.
 
 #####Market Depth Fields
 * `exchange`
@@ -933,7 +933,7 @@ Currently unsupported for CAMPBX, COINBASE and LAKEBTC.
 * `trades`  
 
 #####Trade Fields
-* `id` Optional id supplied by the respective exchange.
+* `id` Optional ID supplied by the respective exchange.
 * `market`
 * `amount`
 * `price`
